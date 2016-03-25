@@ -1,6 +1,6 @@
-## Currency Arbitrage
+# Currency Arbitrage
 
-
+### Example Exchange Matrix
 
 |   | USD | EUR | JPY | BTC |
 |---|---|---|---|---|
@@ -10,8 +10,12 @@
 | BTC | 115.65 | 88.8499 | 12325.44 | - |
 
 
+
+### Single Currency
+
+This graph shows all arbitrage possibilities starting with a single currency.
 ```
-All Arbitrage possibilities starting with a single currency
+
 
 
                USD
