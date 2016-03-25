@@ -1,13 +1,13 @@
 var Bluebird      = require('bluebird');
 var request       = Bluebird.promisify(require('request'));
 
-var URL = 'http://fx.priceonomics.com/v1/rates/';
+var API_URL = 'http://fx.priceonomics.com/v1/rates/';
 
 
 /* 
- * RUN
+ * Run 
  */ 
-request({ url: URL, method: "GET" })
+request({ url: API_URL, method: "GET" })
 .then(function (response) {  
   
   var matrix    = createMatrix(JSON.parse(response.body));  
@@ -16,6 +16,7 @@ request({ url: URL, method: "GET" })
   var best      = results[0];
 
   console.log('All possibilities: \n');
+  
   results.forEach(function (node, index) {    
     console.log('Path: ' +  node.path + '\t\t Arbitrage: ' + node.arbValue);
     if (node.arbValue > best.arbValue) {
@@ -46,7 +47,7 @@ var createMatrix = function (data) {
 }
 
 /* 
- * Takes our currency matrix and calculates all arbitrage possibilities of length 1 
+ * Take our currency matrix and calculate all arbitrage possibilities of length 1 
  * EX: (USD -> EUR -> USD)
  */
 var kickOff = function (matrix) {
@@ -57,7 +58,7 @@ var kickOff = function (matrix) {
     for (var j in matrix[i]) {    
       if ( i != j) {
         
-        var remaining = JSON.parse(JSON.stringify(matrix[i]));
+        var remaining = JSON.parse(JSON.stringify(matrix[i])); // Clone 
         delete remaining[i];
         delete remaining[j];
         
@@ -81,21 +82,22 @@ var kickOff = function (matrix) {
 var traverse = function (matrix, results) {
 
   var newResults = [];
+  var remaining, tempPath;
 
   for (var i in results) {
     for (var j in results[i].remaining) {
 
-      var remaining = JSON.parse(JSON.stringify(results[i].remaining));        
+      remaining = JSON.parse(JSON.stringify(results[i].remaining)); // Clone      
       delete remaining[j];
 
-      var object = {
+      tempPath = {
         path: results[i].path + '->' + j, 
         value: matrix[results[i].last][j] * results[i].value,
         remaining: remaining,
         first: results[i].first,
         last: j
       };
-      object.arbValue = object.value * matrix[object.last][object.first];        
+      tempPath.arbValue = tempPath.value * matrix[tempPath.last][tempPath.first];        
       newResults.push(object);
     
     }
