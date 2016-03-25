@@ -14,6 +14,7 @@
 ### Single Currency
 
 This graph shows all arbitrage possibilities starting with a single currency.
+
 ```
 
 
