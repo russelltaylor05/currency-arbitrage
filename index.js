@@ -104,19 +104,3 @@ var traverse = function (matrix, results) {
   }
   return (newResults.length) ? results.concat(traverse(matrix, newResults)) : results;
 }
-
-
-/****************************
-All Arbitrage possibilities starting with a single currency
-
-               USD
-            /   |   \
-         /      |      \      
-      /         |         \
-   EUR         BTC         JPY
-  /   \       /   \      /    \
-BTC   JPY   EUR   JPY   BTC   EUR
- |     |     |     |     |     |
-JPY   BTC   JPY   EUR   EUR   BTC
- 
-****************************/

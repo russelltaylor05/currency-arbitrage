@@ -13,12 +13,9 @@
 
 ### Single Currency
 
-This graph shows all arbitrage possibilities starting with a single currency.
+All possible arbitrage paths starting with a single currency.
 
 ```
-
-
-
                USD
             /   |   \
          /      |      \      
@@ -29,3 +26,11 @@ BTC   JPY   EUR   JPY   BTC   EUR
  |     |     |     |     |     |
 JPY   BTC   JPY   EUR   EUR   BTC
  ```
+
+ ### Approach
+
+My solution is a brute force approach that will calculate every possible arbitrage path for each currency in the matrix. 
+
+All possible solutions are stored in a `results` array where each object represents a possible arbitrage path. Each possible path also contains information on the first and last currency in the path, as well as an array of remaining currencies to explore.
+
+Since the state of each arbitrage path is stored in the results, our `traverse()' function can be called recursivly for any number of currencies present in the matrix.
