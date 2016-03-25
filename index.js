@@ -15,16 +15,16 @@ request({ url: API_URL, method: "GET" })
   var results   = traverse(matrix, start);  
   var best      = results[0];
 
-  console.log('All possibilities: \n');
+  console.log(results.length + ' possible arbitrage opportunites : \n');
   
   results.forEach(function (node, index) {    
-    console.log('Path: ' +  node.path + '\t\t Arbitrage: ' + node.arbValue);
+    console.log(node.path + '->' + node.first + '\t Arb: ' + node.arbValue);
     if (node.arbValue > best.arbValue) {
       best = node;
     }    
   });
   console.log('\n\nBest Path: ' +  best.path + '->' + best.first);
-  console.log('Arbitrage Value: ' +  best.arbValue);
+  console.log('Best Arbitrage: ' +  best.arbValue);
 });
 
 
@@ -98,7 +98,7 @@ var traverse = function (matrix, results) {
         last: j
       };
       tempPath.arbValue = tempPath.value * matrix[tempPath.last][tempPath.first];        
-      newResults.push(object);
+      newResults.push(tempPath);
     
     }
   }

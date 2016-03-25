@@ -1,5 +1,12 @@
 # Currency Arbitrage
 
+### Run Locally
+
+```
+npm i
+node index.js
+````
+
 ### Approach
 
 My solution is a brute force approach that will calculate every possible arbitrage path for each currency in the matrix. 
